@@ -20,6 +20,7 @@ function redirectLogin () {
 }
 
 function refreshToken () {
+  // 这里单独创建了一个实例，没有request的拦截器（解决刷新失败无限循环问题）
   return axios.create()({
     method: 'POST',
     url: '/front/user/refresh_token',
@@ -63,6 +64,8 @@ request.interceptors.response.use(function (response) { // 状态码为 2xx 都�
     } else if (status === 401) {
       // token 无效（没有提供 token、token 是无效的、token 过期了）
       // 如果有 refresh_token 则尝试使用 refresh_token 获取新的 access_token
+
+      // 没有登录信息，直接跳转到登录页面
       if (!store.state.user) {
         redirectLogin()
         return Promise.reject(error)
