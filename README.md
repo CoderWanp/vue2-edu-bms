@@ -1,4 +1,4 @@
-# edu-boss-fed
+# vue2-edu-bms
 
 ## Project setup
 ```
